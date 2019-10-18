@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] float speed = 1.0f;
+    [SerializeField] private float speed = 1.0f;
+    [SerializeField] private Vector2 jumpVector;
 
-    Vector2 inputVector;
-    PlayerInputs inputs;
+    private Vector2 inputVector;
+    private PlayerInputs inputs;
     private Rigidbody2D myRigidbody;
+    private bool canJump = false;
 
     private void Awake()
     {
@@ -21,11 +23,19 @@ public class PlayerController : MonoBehaviour
             inputVector.y = 0.0f;
         };
         inputs.Gameplay.Move.canceled += ctx => inputVector = Vector2.zero;
+        inputs.Gameplay.Jump.performed += ctx => Jump();
+    }
+
+    private void Jump()
+    {
+        Debug.Log(canJump);
+        Debug.Log(jumpVector);
+        if(canJump)
+            myRigidbody.AddForce(jumpVector);
     }
 
     private void FixedUpdate()
     {
-        
         myRigidbody.MovePosition(myRigidbody.position + (Time.deltaTime * speed * inputVector));
     }
 
@@ -37,5 +47,15 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         inputs.Gameplay.Disable();
+    }
+
+    public void CanJump()
+    {
+        canJump = true;
+    }
+
+    public void CannotJump()
+    {
+        canJump = false;
     }
 }
