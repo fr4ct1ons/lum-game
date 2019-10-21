@@ -5,17 +5,19 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float speed = 1.0f;
-    [SerializeField] private Vector2 jumpVector;
 
-    private Vector2 inputVector;
-    private PlayerInputs inputs;
-    private Rigidbody2D myRigidbody;
-    private bool canJump = false;
+    [SerializeField] CharacterController2D controller;
 
+    [SerializeField] float runSpeed = 40f;
+    
+    bool canJump = false;
+    bool crouch = false;
+    
+    PlayerInputs inputs;
+    Vector2 inputVector;
     private void Awake()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
+        controller = GetComponent<CharacterController2D>();
         inputs = new PlayerInputs();
         inputs.Gameplay.Move.performed += ctx =>
         {
@@ -28,15 +30,13 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        Debug.Log(canJump);
-        Debug.Log(jumpVector);
-        if(canJump)
-            myRigidbody.AddForce(jumpVector);
+        canJump = true;
     }
 
     private void FixedUpdate()
     {
-        myRigidbody.MovePosition(myRigidbody.position + (Time.deltaTime * speed * inputVector));
+        controller.Move(inputVector.x * runSpeed* Time.fixedDeltaTime, crouch, canJump);
+        canJump = false;
     }
 
     private void OnEnable()

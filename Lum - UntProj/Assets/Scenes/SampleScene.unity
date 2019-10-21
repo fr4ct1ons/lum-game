@@ -336,7 +336,7 @@ PrefabInstance:
     - target: {fileID: 4492804432290057651, guid: 0189e10864db45a46b31e35d71878936,
         type: 3}
       propertyPath: m_Name
-      value: Lum (1)
+      value: Lum Mirror
       objectReference: {fileID: 0}
     - target: {fileID: 4492804432290057615, guid: 0189e10864db45a46b31e35d71878936,
         type: 3}
@@ -397,6 +397,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492804432290057614, guid: 0189e10864db45a46b31e35d71878936,
+        type: 3}
+      propertyPath: runSpeed
+      value: -40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0189e10864db45a46b31e35d71878936, type: 3}
